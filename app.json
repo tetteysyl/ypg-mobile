@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "Saviour YPG",
+    "slug": "ypg-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#3b1f6e"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ypg.saviour",
+      "buildNumber": "1"
+    },
+    "android": {
+      "package": "com.ypg.saviour",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "permissions": []
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-status-bar",
+      "expo-splash-screen",
+      "expo-font"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "ae6ca42d-93ec-4acc-9438-8b250ec3db7b"
+      }
+    }
+  }
+}
