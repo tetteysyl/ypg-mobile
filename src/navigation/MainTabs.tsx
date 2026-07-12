@@ -8,6 +8,7 @@ import { can } from "../lib/roles";
 import DashboardScreen from "../screens/DashboardScreen";
 import MembersScreen from "../screens/MembersScreen";
 import MeetingsScreen from "../screens/MeetingsScreen";
+import AttendanceListScreen from "../screens/AttendanceListScreen";
 import AttendanceScreen from "../screens/AttendanceScreen";
 import FinanceScreen from "../screens/FinanceScreen";
 import ReportsScreen from "../screens/ReportsScreen";
@@ -29,6 +30,7 @@ function HomeStack() {
       <Stack.Screen name="Admin" component={AdminScreen} />
       <Stack.Screen name="Broadcast" component={BroadcastScreen} />
       <Stack.Screen name="Messages" component={MessagesScreen} />
+      <Stack.Screen name="Attendance" component={AttendanceScreen} />
     </Stack.Navigator>
   );
 }
@@ -57,9 +59,7 @@ export function MainTabs() {
     >
       <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="Meetings" component={MeetingsScreen} />
-      {can.markAttendance(role) && (
-        <Tab.Screen name="Attendance" component={AttendanceScreen} />
-      )}
+      <Tab.Screen name="Attendance" component={AttendanceListScreen} />
       <Tab.Screen name="More" component={MoreScreen} />
     </Tab.Navigator>
   );

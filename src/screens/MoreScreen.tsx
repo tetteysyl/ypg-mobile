@@ -54,7 +54,7 @@ export default function MoreScreen({ navigation }: any) {
           <TouchableOpacity
             key={item.screen}
             style={[s.row, i > 0 && s.rowBorder]}
-            onPress={() => navigation.navigate(item.screen)}
+            onPress={() => navigation.navigate("Home", { screen: item.screen })}
           >
             <View style={s.iconBox}>
               <Ionicons name={item.icon as any} size={18} color="#3b1f6e" />

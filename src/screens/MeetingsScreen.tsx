@@ -65,9 +65,16 @@ export default function MeetingsScreen({ navigation }: any) {
             <TouchableOpacity
               key={m.id}
               style={s.card}
-              onPress={() => can.markAttendance(role) && navigation.navigate("Attendance", { meetingId: m.id, title: m.title })}
+              onPress={() => {
+                if (!can.markAttendance(role)) return;
+                navigation.navigate("Attendance", {
+                  meetingId: m.id,
+                  title: m.title,
+                  readOnly: m.status === "ended",
+                });
+              }}
             >
-              <View style={s.dateBox}>
+              <View style={[s.dateBox, m.status === "ended" && s.dateBoxEnded]}>
                 <Text style={s.dateMonth}>{m.date ? new Date(m.date).toLocaleString("default", { month: "short" }) : "—"}</Text>
                 <Text style={s.dateDay}>{m.date ? new Date(m.date).getDate() : "—"}</Text>
               </View>
@@ -75,6 +82,9 @@ export default function MeetingsScreen({ navigation }: any) {
                 <Text style={s.meetingTitle}>{m.title}</Text>
                 {m.location ? <Text style={s.meetingMeta}>📍 {m.location}</Text> : null}
                 {m.time ? <Text style={s.meetingMeta}>🕐 {m.time}</Text> : null}
+                {m.status === "ended" && (
+                  <Text style={s.endedTag}>✓ Ended · {(m.attendees ?? []).length} attended</Text>
+                )}
               </View>
               {can.markAttendance(role) && <Ionicons name="chevron-forward" size={16} color="#9ca3af" />}
             </TouchableOpacity>
@@ -127,6 +137,8 @@ const s = StyleSheet.create({
   empty: { textAlign: "center", color: "#9ca3af", marginTop: 40 },
   card: { flexDirection: "row", alignItems: "center", gap: 12, backgroundColor: "#fff", borderRadius: 14, padding: 14, shadowColor: "#000", shadowOpacity: 0.04, shadowRadius: 6, elevation: 1 },
   dateBox: { width: 48, backgroundColor: "#3b1f6e", borderRadius: 10, padding: 8, alignItems: "center" },
+  dateBoxEnded: { backgroundColor: "#6b7280" },
+  endedTag: { fontSize: 11, color: "#16a34a", fontWeight: "600", marginTop: 3 },
   dateMonth: { fontSize: 10, color: "rgba(255,255,255,0.7)" },
   dateDay: { fontSize: 18, fontWeight: "bold", color: "#fff" },
   meetingTitle: { fontSize: 15, fontWeight: "600", color: "#111827" },
