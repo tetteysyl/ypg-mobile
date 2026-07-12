@@ -40,13 +40,15 @@ export const ROLE_BADGE_COLORS: Record<Role, { bg: string; text: string }> = {
 };
 
 export const SINGLETON_ROLES: Role[] = [
-  "president","vice_president","general_secretary","assistant_general_secretary",
-  "financial_secretary","treasurer","evangelism_coordinator","male_organizer","female_organizer",
+  "president", "vice_president", "general_secretary", "assistant_general_secretary",
+  "financial_secretary", "treasurer", "evangelism_coordinator", "male_organizer", "female_organizer",
 ];
+
+const isPresident = (role: Role) => ["president", "vice_president"].includes(role);
 
 export const can = {
   viewAllMembers: (role: Role) => !["member", "pending"].includes(role),
-  manageMembers: (role: Role) => ["president", "vice_president"].includes(role),
+  manageMembers: (role: Role) => isPresident(role),
   manageDues: (role: Role) => ["financial_secretary", "treasurer"].includes(role),
   viewDuesStatus: (role: Role) => ["president", "financial_secretary", "treasurer"].includes(role),
   sendDuesReminder: (role: Role) => role === "financial_secretary",
@@ -55,13 +57,18 @@ export const can = {
   viewFinance: (role: Role) =>
     ["president", "vice_president", "financial_secretary", "treasurer"].includes(role),
   editFinance: (role: Role) => ["financial_secretary", "treasurer"].includes(role),
+  publishFinancialStatement: (role: Role) => ["financial_secretary", "treasurer"].includes(role),
   publishReport: (role: Role) => ["president", "general_secretary"].includes(role),
+  approveReport: (role: Role) => ["president", "general_secretary"].includes(role),
   draftReport: (role: Role) =>
     ["president", "general_secretary", "vice_president", "assistant_general_secretary"].includes(role),
   scheduleMeeting: (role: Role) =>
     ["president", "vice_president", "male_organizer", "female_organizer"].includes(role),
   markAttendance: (role: Role) =>
     ["president", "vice_president", "male_organizer", "female_organizer"].includes(role),
-  accessAdmin: (role: Role) => ["president", "vice_president"].includes(role),
+  sendBibleQuote: (role: Role) => isPresident(role),
+  checkAbsentMembers: (role: Role) =>
+    ["president", "vice_president", "male_organizer", "female_organizer"].includes(role),
+  accessAdmin: (role: Role) => isPresident(role),
   viewDateOfBirth: (role: Role) => role === "president",
 };
