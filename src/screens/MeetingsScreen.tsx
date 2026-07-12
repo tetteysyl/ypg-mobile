@@ -67,10 +67,13 @@ export default function MeetingsScreen({ navigation }: any) {
               style={s.card}
               onPress={() => {
                 if (!can.markAttendance(role)) return;
-                navigation.navigate("Attendance", {
-                  meetingId: m.id,
-                  title: m.title,
-                  readOnly: m.status === "ended",
+                navigation.navigate("Home", {
+                  screen: "Attendance",
+                  params: {
+                    meetingId: m.id,
+                    title: m.title,
+                    readOnly: m.status === "ended",
+                  },
                 });
               }}
             >
